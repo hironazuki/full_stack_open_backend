@@ -40,19 +40,19 @@ app.get('/info', (req, res) => {
 
 app.get('/api/persons/:id', (req, res, next) => {
   Person.findById(req.params.id)
-  .then(person => {
-    if (person) {
-      res.json(person.toJSON())
-    } else {
-      res.status(404).end()
-    }
-  })
-  .catch(error => next(error))
+    .then(person => {
+      if (person) {
+        res.json(person.toJSON())
+      } else {
+        res.status(404).end()
+      }
+    })
+    .catch(error => next(error))
 })
 
 app.delete('/api/persons/:id', (req, res, next) => {
   Person.findByIdAndRemove(req.params.id)
-    .then(result => {
+    .then(() => {
       res.status(204).end()
     })
     .catch(error => next(error))
@@ -69,10 +69,10 @@ app.post('/api/persons', (req, res, next) => {
 
   person
     .save()
-      .then(savedPerson => savedPerson.toJSON())
-      .then(savedAndFormatedPerson => {
-        res.json(savedAndFormatedPerson)
-      })
+    .then(savedPerson => savedPerson.toJSON())
+    .then(savedAndFormatedPerson => {
+      res.json(savedAndFormatedPerson)
+    })
     .catch(error => next(error))
 })
 
@@ -97,7 +97,7 @@ app.use(unknownEndpoint)
 
 const errorHandler = (error, request, response, next) => {
   console.error(error.message)
-  
+
   if (error.name === 'CastError' && error.kind === 'ObjectId') {
     return response.status(400).send({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError') {
