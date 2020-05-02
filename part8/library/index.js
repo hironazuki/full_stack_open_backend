@@ -47,6 +47,7 @@ const typeDefs = gql`
 
   type Token {
     value: String!
+    user: User
   }
   
   type Query {
@@ -126,9 +127,7 @@ const resolvers = {
         try {
           await newAuthor.save()
         } catch (error) {
-          throw new UserInputError(error.message, {
-            invalidArgs: args,
-          })
+          throw new VaridationError(error.message)
         }
       }
       const bookAuthor = await Author.findOne({ name: args.author })
@@ -189,7 +188,7 @@ const resolvers = {
         id: user._id,
       }
 
-      return { value: jwt.sign(userForToken, JWT_SECRET) }
+      return { value: jwt.sign(userForToken, JWT_SECRET), user }
     },
   },
 }
