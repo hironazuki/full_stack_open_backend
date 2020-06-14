@@ -12,6 +12,15 @@ const getEntries = (): Array<PatientEntry> => {
   return patients;
 };
 
+// const getEntry = (): PatientEntry => {
+//   return patient;
+// };
+
+const findById = (id: string) => {
+  const entry = patients.find(d => d.id === id);
+  return entry;
+};
+
 const getNonSensitiveEntries = (): NonSensitivePatientEntry[] => {
   return patients.map(({ id, name, dateOfBirth, gender, occupation }) => ({
     id,
@@ -35,5 +44,6 @@ const addEntry = (entry: NewPatientEntry): PatientEntry => {
 export default {
   getEntries,
   getNonSensitiveEntries,
-  addEntry
+  addEntry,
+  findById
 };

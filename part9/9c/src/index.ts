@@ -1,9 +1,9 @@
 import express from 'express';
-import diagnoseRouter from './routes/diagnoses';
+import diagnosisRouter from './routes/diagnoses';
 import patientRouter from './routes/patients';
 
 const app = express();
-app.use(function(req, res, next) {
+app.use(function(_req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.header(
     'Access-Control-Allow-Headers',
@@ -20,7 +20,7 @@ app.get('/api/ping', (_req, res) => {
   res.send('pong');
 });
 
-app.use('/api/dignoses', diagnoseRouter);
+app.use('/api/diagnoses', diagnosisRouter);
 app.use('/api/patients', patientRouter);
 
 app.listen(PORT, () => {
