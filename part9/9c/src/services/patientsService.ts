@@ -3,7 +3,8 @@ import patientData from '../../data/patients';
 import {
   NewPatientEntry,
   NonSensitivePatientEntry,
-  PatientEntry
+  PatientEntry,
+  Entry
 } from '../types';
 
 const patients: Array<PatientEntry> = patientData;
@@ -31,7 +32,7 @@ const getNonSensitiveEntries = (): NonSensitivePatientEntry[] => {
   }));
 };
 
-const addEntry = (entry: NewPatientEntry): PatientEntry => {
+const addPatient = (entry: NewPatientEntry): PatientEntry => {
   const newPatientEntry = {
     id: Math.random()
       .toString(32)
@@ -41,9 +42,19 @@ const addEntry = (entry: NewPatientEntry): PatientEntry => {
   patients.push(newPatientEntry);
   return newPatientEntry;
 };
+
+const addEntry = (entry: Entry, id: string): Entry | never => {
+  const patient = patients.find(p => p.id === id);
+  if (patient) {
+    patient.entries.push(entry);
+    return entry;
+  }
+  throw new Error('not find patient');
+};
 export default {
   getEntries,
   getNonSensitiveEntries,
-  addEntry,
-  findById
+  addPatient,
+  findById,
+  addEntry
 };

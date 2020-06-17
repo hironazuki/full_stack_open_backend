@@ -1,0 +1,16 @@
+POST http://localhost:3001/api/patients/d2773336-f723-11e9-8f0b-362b9e155667/entries
+Content-Type: application/json
+
+{
+	"description": "teset",
+	"date": "2010-10-1",
+	"specialist": "tetman",
+	"type": "OccupationalHealthcare",
+  "employerName": "testName",
+  "sickLeave": {
+    "startDate": "2020-1-1",
+    "endDate": "2020-1-2"
+  }
+}
+
+
